@@ -72,11 +72,11 @@
     "train_loss": {
         "type": "overparametrization_loss",
         "args":{
-            "num_examp": 45000, 
+            "num_examp": 50000, 
             "num_classes": 100,
             "ratio_consistency": 0.9,
             "ratio_balance": 0.1,
-            "ratio_reg": 100
+            "ratio_reg": 10
         }
     },
 
