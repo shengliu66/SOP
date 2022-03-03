@@ -21,7 +21,7 @@ class cross_entropy(nn.Module):
         return torch.mean(max_)
         
 
-    def forward(self, index, outputs, label, gt_label, mixindex = None, mixlam = 1):
+    def forward(self, index, outputs, label):
         if len(outputs) > len(index):
             output, output2 = torch.chunk(outputs, 2)
         else:
@@ -53,7 +53,7 @@ class overparametrization_loss(nn.Module):
         torch.nn.init.normal_(self.t, mean=mean, std=std)
 
 
-    def forward(self, index, outputs, label, gt_label, mixindex = None, mixlam = 1):
+    def forward(self, index, outputs, label):
         # label = torch.zeros(len(label), self.config['num_classes']).cuda().scatter_(1, label.view(-1,1), 1)
 
         if len(outputs) > len(index):
@@ -119,13 +119,6 @@ class overparametrization_loss(nn.Module):
             consistency_loss = self.consistency_loss(index, output, output2)
 
             loss += self.ratio_consistency * torch.mean(consistency_loss)
-
-
-        wronglabels = label.argmax(dim=1)!=gt_label
-        if len(gt_label[wronglabels]) > 0:
-            label_correction_rate = ((gt_label == (label - E.detach()).argmax(dim=1))[wronglabels]).sum().item()/len(gt_label[wronglabels])
-        else:
-            label_correction_rate = 0
 
 
 
