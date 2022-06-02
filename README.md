@@ -1,5 +1,5 @@
 # SOP
-Official Implementation of Robust Training under Label Noise by Over-parameterization (accepted at ICML 2022)
+Official Implementation of Robust Training under Label Noise by Over-parameterization (accepted at **ICML 2022**)
 
 ### Example
 For 40% symmetric noise
