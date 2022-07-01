@@ -49,8 +49,8 @@ class overparametrization_loss(nn.Module):
         self.init_param(mean=self.config['reparam_arch']['args']['mean'], std=self.config['reparam_arch']['args']['std'])
 
     def init_param(self, mean=0., std=1e-8):
-        torch.nn.init.normal_(self.s, mean=mean, std=std)
-        torch.nn.init.normal_(self.t, mean=mean, std=std)
+        torch.nn.init.normal_(self.u, mean=mean, std=std)
+        torch.nn.init.normal_(self.v, mean=mean, std=std)
 
 
     def forward(self, index, outputs, label):
