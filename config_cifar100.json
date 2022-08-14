@@ -62,7 +62,8 @@
     "optimizer_overparametrization": {
         "type": "SGD",
         "args":{
-            "lr": 1,
+            "lr_u": 1,
+            "lr_v": 10,
             "momentum": 0,
             "weight_decay": 0
         }
@@ -75,8 +76,7 @@
             "num_examp": 50000, 
             "num_classes": 100,
             "ratio_consistency": 0.9,
-            "ratio_balance": 0.1,
-            "ratio_reg": 10
+            "ratio_balance": 0.1
         }
     },
 
