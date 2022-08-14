@@ -80,7 +80,9 @@ def main(config: ConfigParser):
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
     trainable_params = [{'params': [p for p in model.parameters() if  getattr(p, 'requires_grad', False)]}
                         ]
-    reparam_params = [{'params': [train_loss.u, train_loss.v], 'lr': config['optimizer_overparametrization']['args']['lr'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']}]#, 'momentum': config['optimizer_overparametrization']['args']['momentum']}] 
+    reparam_params = [{'params': train_loss.u, 'lr': config['optimizer_overparametrization']['args']['lr_u'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']},
+                      {'params': train_loss.v, 'lr': config['optimizer_overparametrization']['args']['lr_v'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']}
+                     ]#, 'momentum': config['optimizer_overparametrization']['args']['momentum']}] 
 
     optimizer = config.initialize('optimizer', torch.optim, trainable_params)
 
