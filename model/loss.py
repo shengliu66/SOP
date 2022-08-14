@@ -32,7 +32,7 @@ class cross_entropy(nn.Module):
 
 
 class overparametrization_loss(nn.Module):
-    def __init__(self, num_examp, num_classes=10, ratio_consistency = 0, ratio_balance = 0, ratio_reg = 100):
+    def __init__(self, num_examp, num_classes=10, ratio_consistency = 0, ratio_balance = 0):
         super(overparametrization_loss, self).__init__()
         self.num_classes = num_classes
         self.config = ConfigParser.get_instance()
@@ -41,7 +41,6 @@ class overparametrization_loss(nn.Module):
 
         self.ratio_consistency = ratio_consistency
         self.ratio_balance = ratio_balance
-        self.ratio_reg = ratio_reg
 
         self.u = nn.Parameter(torch.empty(num_examp, 1, dtype=torch.float32))
         self.v = nn.Parameter(torch.empty(num_examp, num_classes, dtype=torch.float32))
@@ -101,7 +100,7 @@ class overparametrization_loss(nn.Module):
 
         if self.ratio_reg > 0:
 
-         loss += self.ratio_reg * MSE_loss
+         loss += MSE_loss
 
 
         if self.ratio_balance > 0:
