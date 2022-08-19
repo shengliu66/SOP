@@ -17,7 +17,6 @@ python train.py -c config_cifar100.json --lr_u 1 --lr_v 10 --percent 0.4
 For 40% Asymetric noise
 ```
 python train.py -c config_cifar100.json --lr_u 1 --lr_v 100 --percent 0.4 --name CIFAR100 --asym True
-
 ```
 
 @InProceedings{pmlr-v162-liu22w,
@@ -32,5 +31,4 @@ python train.py -c config_cifar100.json --lr_u 1 --lr_v 100 --percent 0.4 --name
   month = 	 {17--23 Jul},
   publisher =    {PMLR}
 }
-
 ```
