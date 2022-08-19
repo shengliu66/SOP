@@ -9,11 +9,14 @@ This repository is the official implementation of [Robust Training under Label N
 We propose a principled approach for robust training of over-parameterized deep networks in classification tasks where a proportion of training labels are corrupted. The main idea is yet very simple: label noise is sparse and incoherent with the network learned from clean data, so we model the noise and learn to separate it from the data. Specifically, we model the label noise via another sparse over-parameterization term, and exploit implicit algorithmic regularizations to recover and separate the underlying corruptions. Remarkably, when trained using such a simple method in practice, we demonstrate state-of-the-art test accuracy against label noise on a variety of real datasets. Furthermore, our experimental results are corroborated by theory on simplified linear models, showing that exact separation between sparse noise and low-rank data can be achieved under incoherent conditions. The work opens many interesting directions for improving over-parameterized models by using sparse over-parameterization and implicit regularization.
 
 ### Example
+Please follow Table A.1 for hyperparameters. 
 For 40% symmetric noise
 ```
-python python train.py -c config_cifar100.json --percent 0.4
+python train.py -c config_cifar100.json --lr_u 1 --lr_v 10 --percent 0.4
 ```
-
+For 40% Asymetric noise
+```
+python train.py -c config_cifar100.json --lr_u 1 --lr_v 100 --percent 0.4 --name CIFAR100 --asym True
 
 ```
 

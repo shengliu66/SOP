@@ -80,8 +80,8 @@ def main(config: ConfigParser):
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
     trainable_params = [{'params': [p for p in model.parameters() if  getattr(p, 'requires_grad', False)]}
                         ]
-    reparam_params = [{'params': train_loss.u, 'lr': config['optimizer_overparametrization']['args']['lr_u'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']},
-                      {'params': train_loss.v, 'lr': config['optimizer_overparametrization']['args']['lr_v'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']}
+    reparam_params = [{'params': train_loss.u, 'lr': config['lr_u'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']},
+                      {'params': train_loss.v, 'lr': config['lr_v'], 'weight_decay': config['optimizer_overparametrization']['args']['weight_decay']}
                      ]#, 'momentum': config['optimizer_overparametrization']['args']['momentum']}] 
 
     optimizer = config.initialize('optimizer', torch.optim, trainable_params)
@@ -119,7 +119,8 @@ if __name__ == '__main__':
     CustomArgs = collections.namedtuple('CustomArgs', 'flags type target')
     options = [
         CustomArgs(['--lr', '--learning_rate'], type=float, target=('optimizer', 'args', 'lr')),
-        CustomArgs(['--lr_op', '--learning_rate_overparametrization'], type=float, target=('optimizer_overparametrization', 'args', 'lr')),
+        CustomArgs(['--lr_u', '--learning_rate_u'], type=float, target=('lr_u',)),
+        CustomArgs(['--lr_v', '--learning_rate_v'], type=float, target=('lr_v',)),
         CustomArgs(['--bs', '--batch_size'], type=int, target=('data_loader', 'args', 'batch_size')),
         CustomArgs(['--percent', '--percent'], type=float, target=('trainer', 'percent')),
         CustomArgs(['--asym', '--asym'], type=bool, target=('trainer', 'asym')),
@@ -131,8 +132,7 @@ if __name__ == '__main__':
         CustomArgs(['--std', '--standard_deviation'], type=float, target=('reparam_arch','args','std')),
         CustomArgs(['--malpha', '--mixup_alpha'], type=float, target=('mixup','alpha')),
         CustomArgs(['--consist', '--ratio_consistency'], type=float, target=('train_loss','args','ratio_consistency')),
-        CustomArgs(['--balance', '--ratio_balance'], type=float, target=('train_loss','args','ratio_balance')),
-        CustomArgs(['--reg', '--ratio_reg'], type=float, target=('train_loss','args','ratio_reg')),
+        CustomArgs(['--balance', '--ratio_balance'], type=float, target=('train_loss','args','ratio_balance'))
     ]
     config = ConfigParser.get_instance(args, options)
 

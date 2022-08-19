@@ -4,8 +4,8 @@
     "seed": 666,
 
     "comet": {
-        "project_name": "",
-        "api": "",
+        "project_name": "zhihui",
+        "api": "kDoKgel5GrZtFGwJLBfirv003",
         "offline": false
     },
 
@@ -39,7 +39,7 @@
     "data_loader": {
         "type": "CIFAR100DataLoader",
         "args":{
-            "data_dir": "",
+            "data_dir": "/gpfs/data/razavianlab/data/cvbenchs/",
             "batch_size": 128,
             "shuffle": true,
             "num_batches": 0,
@@ -62,12 +62,16 @@
     "optimizer_overparametrization": {
         "type": "SGD",
         "args":{
-            "lr_u": 1,
-            "lr_v": 10,
+            "lr": 1,
             "momentum": 0,
             "weight_decay": 0
         }
     },
+
+    "lr_u": 1,
+    "lr_v": 10,
+
+
 
     
     "train_loss": {

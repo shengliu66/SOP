@@ -117,7 +117,6 @@ class Trainer(BaseTrainer):
 
                     self.writer.set_step((epoch - 1) * self.len_epoch + batch_idx, epoch=epoch)           
                     self.writer.add_scalar({'loss': loss.item()})
-                    self.writer.add_scalar({'loss_record': loss_record.item()})
 
                 
                 self.train_loss_list.append(loss.item())

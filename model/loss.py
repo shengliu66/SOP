@@ -65,11 +65,13 @@ class overparametrization_loss(nn.Module):
 
             ensembled_output = output.detach()
 
+        eps = 1e-4
+
         U_square = self.u[index]**2 * label 
         V_square = self.v[index]**2 * (1 - label) 
 
-        U_square = torch.clamp(U_square, 0, 1-1e-4)
-        V_square = torch.clamp(V_square, 0, 1-1e-4)
+        U_square = torch.clamp(U_square, 0, 1)
+        V_square = torch.clamp(V_square, 0, 1)
 
         E =  U_square - V_square
 
@@ -78,36 +80,30 @@ class overparametrization_loss(nn.Module):
 
         original_prediction = F.softmax(output, dim=1)
 
-        prediction = torch.clamp(original_prediction + U_square - V_square.detach(), min = 1e-4)
+        prediction = torch.clamp(original_prediction + U_square.detach() - V_square.detach(), min = eps)
 
-        prediction = F.normalize(prediction, p = 1, eps = 1e-4)
+        prediction = F.normalize(prediction, p = 1, eps = eps)
 
-        prediction = torch.clamp(prediction, min = 1e-4, max = 1.0)
+        prediction = torch.clamp(prediction, min = eps, max = 1.0)
 
         label_one_hot = self.soft_to_hard(output.detach())
 
 
-        if self.ratio_reg > 0:
+        MSE_loss = F.mse_loss((label_one_hot + U_square - V_square), label,  reduction='sum') / len(label)
 
-            MSE_loss = F.mse_loss((label_one_hot + U_square.detach() - V_square), label,  reduction='sum') / len(label)
-
-        else:
-            MSE_loss = torch.zeros(1)
         
         loss = torch.mean(-torch.sum((label) * torch.log(prediction), dim = -1))
 
 
 
-        if self.ratio_reg > 0:
-
-         loss += MSE_loss
+        loss += MSE_loss
 
 
         if self.ratio_balance > 0:
             avg_prediction = torch.mean(prediction, dim=0)
             prior_distr = 1.0/self.num_classes * torch.ones_like(avg_prediction)
 
-            avg_prediction = torch.clamp(avg_prediction, min = 1e-4, max = 1.0)
+            avg_prediction = torch.clamp(avg_prediction, min = eps, max = 1.0)
 
             balance_kl =  torch.mean(-(prior_distr * torch.log(avg_prediction)).sum(dim=0))
 
