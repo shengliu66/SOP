@@ -18,7 +18,7 @@ For 40% Asymetric noise
 ```
 python train.py -c config_cifar100.json --lr_u 1 --lr_v 100 --percent 0.4 --name CIFAR100 --asym True
 ```
-
+```
 @InProceedings{pmlr-v162-liu22w,
   title = 	 {Robust Training under Label Noise by Over-parameterization},
   author =       {Liu, Sheng and Zhu, Zhihui and Qu, Qing and You, Chong},
