@@ -80,7 +80,7 @@ class overparametrization_loss(nn.Module):
 
         original_prediction = F.softmax(output, dim=1)
 
-        prediction = torch.clamp(original_prediction + U_square.detach() - V_square.detach(), min = eps)
+        prediction = torch.clamp(original_prediction + U_square - V_square.detach(), min = eps)
 
         prediction = F.normalize(prediction, p = 1, eps = eps)
 
