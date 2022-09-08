@@ -12,7 +12,7 @@ We propose a principled approach for robust training of over-parameterized deep 
 Please follow Table A.1 for hyperparameters. 
 For 40% symmetric noise
 ```
-python train.py -c config_cifar100.json --lr_u 1 --lr_v 10 --percent 0.4
+python train.py -c config_cifar100.json --lr_u 1 --lr_v 10 --percent 0.5
 ```
 For 40% Asymetric noise
 ```
