@@ -14,7 +14,7 @@ For 50% symmetric noise
 ```
 python train.py -c config_cifar100.json --lr_u 1 --lr_v 10 --percent 0.5
 ```
-For 40% Asymetric noise
+For 40% Asymetric noise （Because we modified the code for better delivery after camera ready, for asymmetric noise we use lr for u equals 0.1 rather than 1 in the paper)
 ```
 python train.py -c config_cifar100.json --lr_u 0.1 --lr_v 100 --percent 0.4 --name CIFAR100 --asym True
 ```
